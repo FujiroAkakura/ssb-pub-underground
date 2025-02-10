@@ -1,0 +1,26 @@
+services:
+    sbot:
+        container_name: sbot
+        #image: FujiroAkakura/ssb-pub-underground
+        build:
+          context: .  #path to file
+          dockerfile: Dockerfile
+        environment:
+          EXAMPLE_EXAMPLE: example_example
+        volumes:  #named volume: https://www.youtube.com/watch?v=p2PH_YPCsis
+          - ssb-pub-underground-data:/home/node/.ssb/
+        ports:
+          - target: 8008
+            published: 8008
+            protocol: tcp
+        restart: unless-stopped
+        deploy:
+          resources:
+            limits:
+              cpus: "1.0"
+              memory: 500M
+volumes:
+  ssb-pub-underground-data:
+
+
+
