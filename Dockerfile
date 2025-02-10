@@ -5,8 +5,8 @@ LABEL org.opencontainers.image.authors="FujiroAkakura@proton.me"
 RUN apt update
 
 USER root
-ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
-RUN chmod +x /tini
+#ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
+#RUN chmod +x /tini
 RUN mkdir /home/node/.npm-global ; \
     chown -R node:node /home/node/
 ENV PATH=/home/node/.npm-global/bin:$PATH
@@ -21,5 +21,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=10s --retries=10 \
   CMD ssb-server whoami || exit 1
 ENV HEALING_ACTION=RESTART
 
-ENTRYPOINT [ "/tini", "--", "ssb-server" ]
+#ENTRYPOINT [ "/tini", "--", "ssb-server" ]
 CMD [ "start" ]
