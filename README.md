@@ -1,18 +1,21 @@
-# ssb-pub
+# ssb-pub-underground
 
-**UNMAINTAINED**, for a maintained alternative to `ssb-pub`, see [`go-ssb-room`](https://github.com/ssb-ngi-pointer/go-ssb-room).
+Host your own [Secure ScuttleButt (SSB)](https://www.scuttlebutt.nz) pub in a docker container at home
 
-easily host your own [Secure ScuttleButt (SSB)](https://www.scuttlebutt.nz) pub in a docker container
+**NOT WORKING YET - PRE ALPHA - DO NOT USE**
 
-if you feel like sharing your pub, please add it to [the informal registry of pubs](https://github.com/ssbc/scuttlebot/wiki/Pub-Servers) as a private pub with your contact details so newbies may request an invite from you!
+A containerized [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file). Docs [here](https://scuttlebot.io/)
 
-(if you are running a pub version less than 2.2.0, please [upgrade](#upgrading)! :tada: )
+SSB Pubs have generally been deprecated in favor of SSB Rooms.  Primarily, this is because pubs replicate and store SSB feeds, and
+it may be undesireable to do that publicly. However, there is one excellent use for an SSB pub, and that is on a home server
+so you and your family and friends can keep your feeds synced.  It seems this is closer to the original vision of SSB.
 
-:heart:
+This is also an experiment to see if [Iroh](https://scuttlebot.io/) can be used to connect two pubs behind NAT firewalls so you can
+also connect to your friends' SSB servers to sync, without the typical publicly hosted SSB Pubs and Rooms.  This makes SSB just a little
+more decentralized and distributed.  If it works, then SSB can go almost completely "underground".
 
 ## table of contents
 
-- [~~one-click setup~~](#one-click-setup)
 - [manual setup](#manual-setup)
   - [install docker](#install-docker)
   - [install `ssb-pub` image](#install-ssb-pub-image)
@@ -24,123 +27,20 @@ if you feel like sharing your pub, please add it to [the informal registry of pu
 - [command and control](#command-and-control)
   - [create invites](#create-invites)
   - [stop, start, restart containers](#stop-start-restart-containers)
-- [upgrading](#upgrading)
-  - [update `ssb-pub` image](#update-ssb-pub-image)
-  - [migrating from v1 to v2](#migrating-from-v1-to-v2)
 
-## ~~one-click setup~~
-
-(currently broken, soz)
-
-1) go to [![Install on DigitalOcean](http://legacy-installer.butt.nz//button.svg)](http://butt.nz) at [http://legacy-installer.butt.nz/](http://legacy-installer.butt.nz/)
-2) choose your server size and region
-
-> ![digital-butt-step-1.png](./images/digital-butt-step-1.png)
-
-3) log in to Digital Ocean, if not done already
-4) add ssh keys, if not done already
-5) start creating your pub server! :raised_hands:
-
-> ![digital-butt-step-2.png](./images/digital-butt-step-2.png)
-
-6) wait for a few minutes :hourglass:
-
-> ![digital-butt-step-3.png](./images/digital-butt-step-3.png)
-
-7) log in to your server using `ssh`
-
-```shell
-ssh root@your.ip.address.here
-```
-
-8) test your pub server works
-
-```shell
-./sbot whoami
-```
-
-9) create your first invite!
-
-```shell
-./sbot invite.create 1
-```
-
-> ![digital-butt-step-4.png](./images/digital-butt-step-4.png)
-
-10) invite and host your friends on [Scuttlebutt](https://www.scuttlebutt.nz) :house_with_garden:
-
-> 11) give your pub a name and description
-> 
-> ```
-> ./sbot publish --type about --about "@your.pubs.id.here" --name "Pubby McPubFace" --description "everyone should have a pub, this is mine"
-> ```
->
-> 12) setup your pub's domain name
->
-> point a domain name (example.com) to your pub server's IP address (using a DNS A record)
->
-> edit `~/ssb-pub-data/config` to change the `connections.incoming.net[].external` property from your server ip address to your domain name:
->
-> ```json
-> {
->   "connections": {
->     "incoming": {
->       "net": [
->         {
->           "scope": "public",
->           "host": "0.0.0.0",
->           "external": "hostname.yourdomain.tld",
->           "transform": "shs",
->           "port": 8008
->         }
->       ]
->     },
->     "outgoing": {
->       "net": [
->         {
->           "transform": "shs"
->         }
->       ]
->     }
->   }
-> }
-> ```
->
-> then restart sbot:
->
-> ```shell
-> docker restart sbot
-> ```
-
-(credit to [seven1m/do-install-button](https://github.com/seven1m/do-install-button) for the Digital Ocean installer)
 
 ## manual setup
 
 ### install docker
 
-to run a pub you need to have a static public IP, ideally with a DNS record (i.e.`<hostname.yourdomain.tld>`)
+https://docs.docker.com/engine/install/
 
-on a fresh Debian 9 box, as root
-
-```shell
-apt update
-apt upgrade -y
-apt install -y apt-transport-https ca-certificates curl software-properties-common
-wget https://download.docker.com/linux/debian/gpg -O docker-gpg
-sudo apt-key add docker-gpg
-echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee -a /etc/apt/sources.list.d/docker.list
-apt update
-apt install -y docker-ce
-systemctl start docker
-systemctl enable docker
-```
-
-### install `ssb-pub` image
+### install `ssb-pub-underground` image
 
 #### (option a) pull image from docker hub
 
 ```shell
-docker pull ahdinosaur/ssb-pub
+docker pull FujiroAkakura/ssb-pub-underground
 ```
 
 #### (option b) build image from source
@@ -148,9 +48,9 @@ docker pull ahdinosaur/ssb-pub
 from GitHub:
 
 ```shell
-git clone https://github.com/ahdinosaur/ssb-pub.git
-cd ssb-pub
-docker build -t ahdinosaur/ssb-pub .
+git clone https://github.com/FujiroAkakura/ssb-pub-underground.git
+cd ssb-pub-underground
+docker build -t FujiroAkakura/ssb-pub-underground .
 ```
 
 ### create `sbot` container
@@ -214,7 +114,7 @@ docker run -d --name sbot \
    -p 8008:8008 \
    --restart unless-stopped \
    --memory "\$memory_limit" \
-   ahdinosaur/ssb-pub
+   FujiroAkakura/ssb-pub-underground
 EOF
 ```
 
@@ -255,7 +155,7 @@ chmod +x ./sbot
 
 ### setup auto-healer
 
-the `ssb-pub` has a built-in health check: `sbot whoami`.
+the `ssb-pub-underground` has a built-in health check: `sbot whoami`.
 
 when `sbot` becomes unhealthy (it will!), we want to kill the container, so it will be automatically restarted by Docker.
 
@@ -328,51 +228,6 @@ docker rm sbot
 ./create-sbot
 ```
 
-## kubernetes setup
-
-Yaml config files for Kubernetes are included in this repository at
-`hack/k8s/deployment.yaml`. This has been tested on DigitalOcean. Tweaks may be
-necessary for clusters hosted by other providers.
-
-The SSB config file is injected into the container as a volume mount. You should
-update the `ssb-config` configMap in the deployment file with your external IP
-or domain, and any other changes you require. Unfortunately, because this is
-being done on a subPath, changes to the configMap will not propogate
-automatically. Please keep this in mind if you find you need to make config
-changes, or, pull requests welcome.
-
-SSB requires persistence to store the log, secrets. The chosen default in the
-included config is 5gb, but you should raise this to a level that makes sense
-for your traffic. If you should find your volume filling up, follow the
-instructions for your provider as to how to increase the size or migrate to a
-larger volume.
-
-After updating the config, you can install SSB into your cluster with the
-following:
-
-```shell
-kubectl apply -f hack/k8s/deployment.yaml
-```
-
-This will do a number of things:
-
-1. create a namespace on your cluster called `scuttlebutt`
-1. create a service exposing port 8008
-1. create a 5gb persistent volume which is mapped to `/home/node/.ssb`
-1. create and inject your ssb config
-
-Much remains the same as with the manual install. However, since we're using
-Kubernetes in this case for orchestration, there is no need to run additional
-services like healer, etc. as liveness checks are handled by the deployment
-configuration.
-
-I've opted short-term _not_ to expose ssh access to the running container, but
-you may access it by first getting the name of your running pod, then:
-
-```shell
-kubectl exec -it <your pod name> -n scuttlebutt /bin/bash
-```
-
 From here you can invoke any of the commands detailed below.
 
 ## command and control
@@ -407,7 +262,7 @@ for `healer`
 
 ## upgrading
 
-### update `ssb-pub` image
+### update `ssb-pub-underground` image
 
 ```shell
 docker pull ahdinosaur/ssb-pub
@@ -416,46 +271,3 @@ docker rm sbot
 # edit ~/ssb-pub-data/config if necessary
 ./create-sbot
 ```
-
-### migrating from `<2.2.0` to `2.2.0+`
-
-edit your `~/ssb-pub-data/config`, such that **`connections.incoming.net[].external`** changes from an array of strings to a single string.
-
-```diff
-{
-  "connections": {
-    "incoming": {
-      "net": [
-        {
-          "scope": "public",
-          "host": "0.0.0.0",
--          "external": ["hostname.yourdomain.tld"],
-+          "external": "hostname.yourdomain.tld",
-          "transform": "shs",
-          "port": 8008
-        }
-      ]
-    },
-    "outgoing": {
-      "net": [
-        {
-          "transform": "shs"
-        }
-      ]
-    }
-  }
-}
-```
-
-### migrating from `v1` to `v2`
-
-for a `v1` pub owner to update to the latest `v2` version of `ssb-pub`:
-
-1. pull the latest v2 image: `docker pull ahdinosaur/ssb-pub`
-2. stop sbot container: `docker stop sbot`
-3. remove sbot container: `docker rm sbot`
-4. [create `~/ssb-pub-data/config`](#step-2-setup-ssb-config)
-5. [re-create `./create-sbot`](#step-3-run-the-container)
-6. `./create-sbot`
-
-check things are working with `docker logs sbot` and `./sbot whoami` :tada:
