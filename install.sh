@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #
-# install ssb-pub image
+# install ssb-pub-underground image
 #
-docker pull ahdinosaur/ssb-pub
+docker pull FujiroAkakura/ssb-pub-underground
 
 #
 # create sbot container
@@ -55,7 +55,7 @@ docker run -d --name sbot \
    -p 8008:8008 \
    --restart unless-stopped \
    --memory "\$memory_limit" \
-   ahdinosaur/ssb-pub
+   FujiroAkakura/ssb-pub-underground
 EOF
 # make the script executable
 chmod +x ./create-sbot
@@ -75,11 +75,11 @@ chmod +x ./sbot
 #
 # setup auto-healer
 #
-docker pull ahdinosaur/healer
+docker pull FujiroAkakura/healer
 docker run -d --name healer \
   -v /var/run/docker.sock:/tmp/docker.sock \
   --restart unless-stopped \
-  ahdinosaur/healer
+  FujiroAkakura/healer
 
 # ensure containers are always running
 printf '#!/bin/sh\n\ndocker start sbot\n' | tee /etc/cron.hourly/sbot && chmod +x /etc/cron.hourly/sbot
