@@ -4,15 +4,28 @@ Host your own [Secure ScuttleButt (SSB)](https://www.scuttlebutt.nz) pub in a do
 
 **NOT WORKING YET - PRE ALPHA - DO NOT USE**
 
-A containerized [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file). Docs [here](https://scuttlebot.io/)
+A containerized [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file) for home server use. Docs [here](https://scuttlebot.io/)
 
-SSB Pubs have generally been deprecated in favor of SSB Rooms.  Primarily, this is because pubs replicate and store SSB feeds, and
-it may be undesireable to do that publicly. However, there is one excellent use for an SSB pub, and that is on a home server
-so you and your family and friends can keep your feeds synced.  It seems this is closer to the original vision of SSB.
+SSB Pubs have generally been deprecated in favor of SSB Rooms.  Primarily, this is because pubs have typically been servers on the internet
+to replicate and store SSB feeds, and it may be undesireable to do that publicly. However, there is one excellent use for an SSB pub, 
+and that is on a home server so you and your family and friends can keep your feeds synced.  It seems this is closer to the original vision of SSB 
+as a sneakernet gossip social media.  It's not inconceivable that an actual physical pub or library might choose to run a local server on their
+wifi.
 
 This is also an experiment to see if [Iroh](https://scuttlebot.io/) can be used to connect two pubs behind NAT firewalls so you can
 also connect to your friends' SSB servers to sync, without the typical publicly hosted SSB Pubs and Rooms.  This makes SSB just a little
 more decentralized and distributed.  If it works, then SSB can go almost completely "underground".
+
+[ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file) appears to be unmaintained, which could be a security risk, so it is not 
+recommended to try to run this publicly, though I am not aware of any issues.  There are other slightly more maintained alternatives, but the 
+choice to use it here is influenced by it's [excellent commandline api](https://scuttlebot.io/apis/scuttlebot/ssb.html), which allows the server 
+to be used programmatically in various ways.
+
+## Attribution
+
+Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which included was designed to 
+install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install
+code has been removed.  This package is currently designed to be used on any Debian-based machine with Docker installed.  
 
 ## table of contents
 
