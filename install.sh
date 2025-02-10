@@ -1,20 +1,5 @@
 #!/bin/bash
 
-cd ~
-
-#
-# install docker
-#
-sudo apt update
-sudo apt install -y curl dnsutils apt-transport-https ca-certificates software-properties-common
-wget https://download.docker.com/linux/debian/gpg -O docker-gpg
-sudo apt-key add docker-gpg
-echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee -a /etc/apt/sources.list.d/docker.list
-sudo apt update
-sudo apt install -y docker-ce
-sudo systemctl start docker
-sudo systemctl enable docker
-
 #
 # install ssb-pub image
 #
