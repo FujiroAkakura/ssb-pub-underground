@@ -1,6 +1,6 @@
-FROM node:14
+FROM node:23-bullseye
 
-MAINTAINER Michael Williams <michael.williams@enspiral.com>
+MAINTAINER Fujiro Akakura <FujiroAkakura@proton.me>
 
 USER root
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
