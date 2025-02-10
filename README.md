@@ -23,7 +23,7 @@ to be used programmatically in various ways.
 
 ## Attribution
 
-Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which included was designed to 
+Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which was designed to 
 install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install
 code has been removed.  This package is currently designed to be used on any Debian-based machine with Docker installed.  
 
