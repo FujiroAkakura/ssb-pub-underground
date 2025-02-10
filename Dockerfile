@@ -1,6 +1,6 @@
 FROM node:23-bullseye
 
-MAINTAINER Fujiro Akakura <FujiroAkakura@proton.me>
+LABEL org.opencontainers.image.authors="FujiroAkakura@proton.me"
 
 USER root
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
