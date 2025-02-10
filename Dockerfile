@@ -2,6 +2,8 @@ FROM node:23-bullseye
 
 LABEL org.opencontainers.image.authors="FujiroAkakura@proton.me"
 
+RUN apt update
+
 USER root
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
 RUN chmod +x /tini
