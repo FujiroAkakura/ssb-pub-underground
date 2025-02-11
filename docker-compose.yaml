@@ -10,7 +10,7 @@ services:
         environment:
           EXAMPLE_EXAMPLE: example_example
         volumes:  #named volume: https://www.youtube.com/watch?v=p2PH_YPCsis
-          - ./ssb:/root/.ssb/
+          - ~./ssb-pub-data:/root/.ssb/
         ports:
           - target: 8008
             published: 8008
