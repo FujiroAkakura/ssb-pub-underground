@@ -49,16 +49,7 @@ sudo docker compose up
 The first time you run, if all went well, you should see output something like:
 
 '''console
-
-sbot  | error loading sodium bindings: Cannot find module 'sodium-native'
-sbot  | Require stack:
-sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/chloride/bindings.js
-sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/chloride/index.js
-sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-keys/index.js
-sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-config/defaults.js
-sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-config/inject.js
-sbot  | - /usr/local/lib/node_modules/ssb-server/bin.js
-sbot  | falling back to javascript version.
+...
 sbot  | ssb-server 15.3.0 /root/.ssb logging.level:notice
 sbot  | my key ID: RmHpJMz9MQTB1m/jgUAGz7BWiZQ/sEp4ovCGZ3jTDTM=.ed25519
 sbot  | ssb-friends: stream legacy api used
