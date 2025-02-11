@@ -10,6 +10,7 @@ services:
         environment:
           EXAMPLE_EXAMPLE: example_example
         volumes:  
+          - ./config:/code/.ssb
           - ./data/:/root/.ssb/
         ports:
           - target: 8008

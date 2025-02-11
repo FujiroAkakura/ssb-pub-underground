@@ -68,7 +68,7 @@ the setup. Otherwise, any updates to this code should reuse this setup.
 Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which was designed to 
 install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install code has been removed. Migrated to Docker Compose and eliminated Debian-based scripts on the host to generalizee the setup. 
 
-Used some tricks from: [Docker-ssb-server](https://github.com/Emceelamb/docker-ssb-server/blob/main/.gitignore)
+Used some tricks from: [Docker-ssb-server](https://github.com/Emceelamb/docker-ssb-server/tree/main)
 
 
 ## DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions
