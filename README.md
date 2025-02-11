@@ -2,8 +2,6 @@
 
 Host your own [Secure ScuttleButt (SSB)](https://www.scuttlebutt.nz) pub in a docker container at home
 
-**NOT WORKING YET - PRE ALPHA - DO NOT USE**
-
 A containerized [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file) for home server use. Docs [here](https://scuttlebot.io/)
 
 SSB Pubs have generally been deprecated in favor of SSB Rooms.  Primarily, this is because pubs have typically been servers on the internet
@@ -19,7 +17,13 @@ more decentralized and distributed.  If it works, then SSB can go almost complet
 [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-file) appears to be unmaintained, which could be a security risk, so it is not 
 recommended to try to run this publicly, though I am not aware of any issues.  There are other slightly more maintained alternatives, but the 
 choice to use it here is influenced by it's [excellent commandline api](https://scuttlebot.io/apis/scuttlebot/ssb.html), which allows the server 
-to be used programmatically in various ways.
+to be used programmatically in various ways, as well as it's plug-in infrastructure.
+
+## Status
+
+Alpha, except pre-alpha as noted towards the end of this readme.  Currently creates a server that doesn't do much on a host machine, but you can test that the server works (or doesn't).  The intent is to offer a base that can make the server more usable with a simple code pull.
+
+It is recommended to wait to install, however, so update scripts/instructions can be created.
 
 ## Attribution
 
@@ -27,173 +31,49 @@ Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://gith
 install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install
 code has been removed.  This package is currently designed to be used on any Debian-based machine with [Docker installed](https://docs.docker.com/engine/install/).  
 
-## table of contents
-
-- [manual setup](#manual-setup)
-  - [install `ssb-pub` image](#install-ssb-pub-image)
-  - [create `sbot` container](#create-sbot-container)
-  - [setup auto-healer](#setup-auto-healer)
-  - [ensure containers are always running](#ensure-containers-are-always-running)
-  - [(optional) add `ssb-viewer` plugin](#optional-add-ssb-viewer)
-- [kubernetes setup](#kubernetes-setup)
-- [command and control](#command-and-control)
-  - [create invites](#create-invites)
-  - [stop, start, restart containers](#stop-start-restart-containers)
-
-
 ## Installation and Setup
 
-### install `ssb-pub-underground` image
-
-#### (option a) pull image from docker hub
-
-```shell
-docker pull FujiroAkakura/ssb-pub-underground
-```
-
-#### (option b) build image from source
-
-from GitHub:
+Clone repository:
 
 ```shell
 git clone https://github.com/FujiroAkakura/ssb-pub-underground.git
 cd ssb-pub-underground
-docker build -t FujiroAkakura/ssb-pub-underground .
 ```
+## Run your server
 
-### create `sbot` container
-
-#### step 1. create a directory on the docker host for persisting the pub's data
+Requires escalated priveleges. Lookup how to run 'Docker compose' on your OS. For example on Debian-derived OSs:
 
 ```shell
-mkdir ~/ssb-pub-data
-chown -R 1000:1000 ~/ssb-pub-data
+sudo docker compose up
 ```
+The first time you run, if all went well, you should see output something like:
 
-> if migrating from an old server, copy your old `secret` and `gossip.json` (maybe also `blobs`) now.
->
-> ```
-> rsync -avz ~/ssb-pub-data/blobs/sha256/ $HOST:~/ssb-pub-data/blobs/sha256/
-> ```
+'''shell
+sbot  | error loading sodium bindings: Cannot find module 'sodium-native'
+sbot  | Require stack:
+sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/chloride/bindings.js
+sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/chloride/index.js
+sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-keys/index.js
+sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-config/defaults.js
+sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/ssb-config/inject.js
+sbot  | - /usr/local/lib/node_modules/ssb-server/bin.js
+sbot  | falling back to javascript version.
+sbot  | ssb-server 15.3.0 /root/.ssb logging.level:notice
+sbot  | my key ID: RmHpJMz9MQTB1m/jgUAGz7BWiZQ/sEp4ovCGZ3jTDTM=.ed25519
+sbot  | ssb-friends: stream legacy api used
+'''
+"my key ID:" is the public address of your server.  Since SSB agents (clients and servers) can disccover each other on 
+local networks, you should see this ID show up in your client software (check that software for where to look). 
 
-#### step 2. setup ssb config
+## Your data
 
-```shell
-EXTERNAL=<hostname.yourdomain.tld>
+The first time you run the server, a subdirectory called "data" will be created on your container host machine.  This is where your server
+will store data, including your secret key.  You will need to move these files if you want to move to a new machine while preserving
+the setup. Otherwise, any updates to this code should reuse this setup.
 
-cat > ~/ssb-pub-data/config <<EOF
-{
-  "connections": {
-    "incoming": {
-      "net": [
-        {
-          "scope": "public",
-          "host": "0.0.0.0",
-          "external": "${EXTERNAL}",
-          "transform": "shs",
-          "port": 8008
-        }
-      ]
-    },
-    "outgoing": {
-      "net": [
-        {
-          "transform": "shs"
-        }
-      ]
-    }
-  }
-}
-EOF
-```
+**DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions**
 
-#### step 3. run the container
-
-create a `./create-sbot` script:
-
-```shell
-cat > ./create-sbot <<EOF
-#!/bin/bash
-
-memory_limit="\$((\$(free -b --si | awk '/Mem\:/ { print \$2 }') - 200*(10**6)))"
-
-docker run -d --name sbot \
-   -v ~/ssb-pub-data/:/home/node/.ssb/ \
-   -p 8008:8008 \
-   --restart unless-stopped \
-   --memory "\$memory_limit" \
-   FujiroAkakura/ssb-pub-underground
-EOF
-```
-
-where
-
-- `--memory` sets an upper memory limit of your total memory minus 200 MB (for example: on a 1 GB server this could be simplified to `--memory 800m`)
-
-then
-
-```shell
-# make the script executable
-chmod +x ./create-sbot
-# run the script
-./create-sbot
-```
-
-#### step 4. create `./sbot` script
-
-we will now create a shell script in `./sbot` to help us command our Scuttlebutt server running:
-
-```shell
-# create the script
-cat > ./sbot <<EOF
-#!/bin/sh
-
-docker exec -it sbot sbot \$@
-EOF
-```
-
-then
-
-```shell
-# make the script executable
-chmod +x ./sbot
-# test the script
-./sbot whoami
-```
-
-### setup auto-healer
-
-the `ssb-pub-underground` has a built-in health check: `sbot whoami`.
-
-when `sbot` becomes unhealthy (it will!), we want to kill the container, so it will be automatically restarted by Docker.
-
-for this situation, we will use [somarat/healer](https://github.com/somarat/healer):
-
-```shell
-docker pull ahdinosaur/healer
-```
-
-```shell
-docker run -d --name healer \
-  -v /var/run/docker.sock:/tmp/docker.sock \
-  --restart unless-stopped \
-  ahdinosaur/healer
-```
-
-### ensure containers are always running
-
-sometimes the `sbot` or `healer` containers will stop running (despite `--restart unless-stopped`!).
-
-for this sitaution, we will setup two cron job scripts:
-
-```shell
-printf '#!/bin/sh\n\ndocker start sbot\n' | tee /etc/cron.hourly/sbot && chmod +x /etc/cron.hourly/sbot
-printf '#!/bin/sh\n\ndocker start healer\n' | tee /etc/cron.hourly/healer && chmod +x /etc/cron.hourly/healer
-```
-
-because `docker start <service>` is [idempotent](https://en.wikipedia.org/wiki/Idempotent), it will not change anything if the service is already running, but if the service is not running it will start it.
-
-### (optional) add `ssb-viewer` plugin
+### (optional) add `ssb-viewer` plugin  
 
 enter your `sbot` container with:
 
