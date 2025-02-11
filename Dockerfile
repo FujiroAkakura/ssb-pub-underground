@@ -22,4 +22,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=10s --retries=10 \
 ENV HEALING_ACTION=RESTART
 
 #ENTRYPOINT [ "/tini", "--", "ssb-server" ]
-#CMD [ "start" ]
+ENTRYPOINT ["ssb-server"]
+CMD [ "start" ]

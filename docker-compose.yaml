@@ -9,8 +9,8 @@ services:
         init: true #https://stackoverflow.com/questions/50356032/whats-the-docker-compose-equivalent-of-docker-run-init
         environment:
           EXAMPLE_EXAMPLE: example_example
-        volumes:  #named volume: https://www.youtube.com/watch?v=p2PH_YPCsis
-          - ssb-pub-underground-data:/root/.ssb/
+        #volumes:  #named volume: https://www.youtube.com/watch?v=p2PH_YPCsis
+          #- ./ssb:/root/.ssb/
         ports:
           - target: 8008
             published: 8008
@@ -21,8 +21,8 @@ services:
             limits:
               cpus: "1.0"
               memory: 500M
-volumes:
-  ssb-pub-underground-data:
+#volumes:
+ # pub-data:
 
 
 
