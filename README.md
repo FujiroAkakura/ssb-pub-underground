@@ -56,12 +56,15 @@ sbot  | ssb-friends: stream legacy api used
 *my key ID:* is the public address of your server.  Since SSB agents (clients and servers) can disccover each other on 
 local networks, you should see this ID show up in your client software (check that software for where to look). 
 
-## Your data
+## Your server data
 
 The first time you run the server, a subdirectory called "data" will be created on your container host machine.  This is where your server
 will store data, including your secret key.  You will need to move these files if you want to move to a new machine while preserving
 the setup. Otherwise, any updates to this code should reuse this setup.
 
+## Your server configuration
+
+The configuration file used by ssb-server is mapped to the "config" subdirectory.  It is not recommended that you edit this at this time.
 
 ## Attribution
 
