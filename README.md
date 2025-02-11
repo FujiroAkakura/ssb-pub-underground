@@ -63,7 +63,7 @@ The first time you run the server, a subdirectory called "data" will be created 
 will store data, including your secret key.  You will need to move these files if you want to move to a new machine while preserving
 the setup. Otherwise, any updates to this code should reuse this setup.
 
-**DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions**
+## DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions
 
 ### (optional) add `ssb-viewer` plugin  
 
