@@ -90,11 +90,18 @@ The output should match *my key ID:* from when you first started the container, 
 }
 ```
 
-### Create an invite
+### Create an invite (Pre-Alpha - NOT WORKING)
+
+See:
+https://github.com/ssbc/ssb-config/#connections
+https://codeberg.org/hjacobs/docker-ssb-server/src/branch/main
+https://github.com/Emceelamb/docker-ssb-server
 
 ```shell
 sudo docker exec -it <container id> ssb-server invite.create 1
 ```
+
+This should give:
 
 ```console
 
