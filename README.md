@@ -49,11 +49,9 @@ sudo docker compose up
 The first time you run, if all went well, you should see output something like:
 
 ```console
-...
 sbot  | ssb-server 15.3.0 /root/.ssb logging.level:notice
 sbot  | my key ID: RmHpJMz9MQTB1m/jgUAGz7BWiZQ/sEp4ovCGZ3jTDTM=.ed25519
 sbot  | ssb-friends: stream legacy api used
-...
 ```
 
 *my key ID:* is the public address of your server.  Since SSB agents (clients and servers) can disccover each other on 
