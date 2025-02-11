@@ -48,7 +48,7 @@ sudo docker compose up
 ```
 The first time you run, if all went well, you should see output something like:
 
-'''shell
+'''console
 sbot  | error loading sodium bindings: Cannot find module 'sodium-native'
 sbot  | Require stack:
 sbot  | - /usr/local/lib/node_modules/ssb-server/node_modules/chloride/bindings.js
@@ -62,6 +62,7 @@ sbot  | ssb-server 15.3.0 /root/.ssb logging.level:notice
 sbot  | my key ID: RmHpJMz9MQTB1m/jgUAGz7BWiZQ/sEp4ovCGZ3jTDTM=.ed25519
 sbot  | ssb-friends: stream legacy api used
 '''
+
 "my key ID:" is the public address of your server.  Since SSB agents (clients and servers) can disccover each other on 
 local networks, you should see this ID show up in your client software (check that software for where to look). 
 
