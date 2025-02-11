@@ -49,12 +49,58 @@ The first time you run, if all went well, you should see output something like:
 
 ```console
 sbot  | ssb-server 15.3.0 /root/.ssb logging.level:notice
-sbot  | my key ID: RmHpJMz9MQTB1m/jgUAGz7BWiZQ/sEp4ovCGZ3jTDTM=.ed25519
+sbot  | my key ID: tGbhTpwDQnr4N7PtztHL17Wi6QXBze8VHUfl5KobUCw=.ed25519
 sbot  | ssb-friends: stream legacy api used
 ```
 
-*my key ID:* is the public address of your server.  Since SSB agents (clients and servers) can disccover each other on 
+*my key ID:* is the public address of your server.  Since SSB agents (clients and servers) can discover each other on 
 local networks, you should see this ID show up in your client software (check that software for where to look). 
+
+## Interacting with the container
+
+### Get your Container ID
+
+Anytime your server is running, you can also get your ID via another terminal.  First, look for it in Docker:
+
+```shell
+sudo docker container ls
+docker exec -it <container id> ssb-server whoami
+```
+
+You should see something like:
+
+```console
+CONTAINER ID   IMAGE                      COMMAND              CREATED          STATUS                    PORTS                                       NAMES
+d2291d8c9198   ssb-pub-underground-sbot   "ssb-server start"   48 minutes ago   Up 48 minutes (healthy)   0.0.0.0:8008->8008/tcp, :::8008->8008/tcp   sbot
+```
+
+Container ID above is *d2291d8c9198* (yours will be different).  Then try the following:
+
+### Get your server's public key:
+
+```shell
+sudo docker exec -it <container id> ssb-server whoami
+```
+
+The output should match *my key ID:* from when you first started the container, except for the '@' at the beginning
+
+```console
+{
+  "id": "@tGbhTpwDQnr4N7PtztHL17Wi6QXBze8VHUfl5KobUCw=.ed25519"
+}
+```
+
+### Create an invite
+
+```shell
+sudo docker exec -it <container id> ssb-server invite.create 1
+```
+
+```console
+
+```
+
+
 
 ## Your server data
 
