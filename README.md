@@ -26,7 +26,7 @@ the instructions below are currently for Debian-based host machines.  You may be
 
 ## Status
 
-Alpha, except pre-alpha as noted towards the end of this readme.  Currently creates a server that doesn't do much on a host machine, but you can test that the server works (or doesn't).  The intent is to offer a base that can make the server more usable with a simple code pull.
+Alpha, except pre-alpha as noted below.  Currently creates a server that doesn't do much on a host machine, but you can test that the server works (or doesn't).  The intent is to offer a base that can make the server more usable with a simple code pull.
 
 It is recommended to wait to install, however, so update scripts/instructions can be created.
 
@@ -103,11 +103,6 @@ The output should match *my key ID:* from when you first started the container, 
 
 ### Create an invite (Pre-Alpha - NOT WORKING)
 
-See:
-https://github.com/ssbc/ssb-config/#connections
-https://codeberg.org/hjacobs/docker-ssb-server/src/branch/main
-https://github.com/Emceelamb/docker-ssb-server
-
 ```shell
 sudo docker exec -it <container id> ssb-server invite.create 1
 ```
@@ -117,6 +112,19 @@ This should give:
 ```console
 
 ```
+
+See:
+https://github.com/ssbc/ssb-config/#connections
+https://codeberg.org/hjacobs/docker-ssb-server/src/branch/main
+https://github.com/Emceelamb/docker-ssb-server
+
+## TO-DOs
+
+* [ ] Get invites working
+* [ ] Review and implement https://github.com/ssbc/ssb-config/#connections
+* [ ] Get [ssb-viewer](https://github.com/ssbc/ssb-viewer) per [ahdinosaur](https://github.com/ahdinosaur) working with latest source code available
+* [ ] Get healer per [ahdinosaur](https://github.com/ahdinosaur) working
+
 ## Attribution
 
 Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which was designed to 
@@ -124,92 +132,3 @@ install a pub on Digital Ocean, but since public pubs have fallen into of disfav
 
 Used some tricks from: [Docker-ssb-server](https://github.com/Emceelamb/docker-ssb-server/tree/main)
 
-
-## DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions
-
-### (optional) add `ssb-viewer` plugin  
-
-enter your `sbot` container with:
-
-```shell
-docker exec -it sbot bash
-```
-
-then run:
-
-```shell
-npm install -g git-ssb
-mkdir -p ~/.ssb/node_modules
-cd ~/.ssb/node_modules
-git clone ssb://%MeCTQrz9uszf9EZoTnKCeFeIedhnKWuB3JHW2l1g9NA=.sha256 ssb-viewer
-cd ssb-viewer
-npm install
-sbot plugins.enable ssb-viewer
-```
-
-edit your config to include
-
-```json
-{
-  "plugins": {
-    "ssb-viewer": true
-  },
-  "viewer": {
-    "host": "0.0.0.0"
-  }
-}
-```
-
-edit your `./create-sbot` to include `-p 8807:8807`.
-
-stop, remove, and re-create sbot:
-
-```shell
-docker stop sbot
-docker rm sbot
-./create-sbot
-```
-
-From here you can invoke any of the commands detailed below.
-
-## command and control
-
-### create invites
-
-from your server:
-
-```shell
-./sbot invite.create 1
-```
-
-from your local machine, using ssh:
-
-```shell
-ssh -t root@server ./sbot invite.create 1
-```
-
-### start, stop, restart containers
-
-for `sbot`
-
-- `docker stop sbot`
-- `docker start sbot`
-- `docker restart sbot`
-
-for `healer`
-
-- `docker stop healer`
-- `docker start healer`
-- `docker restart healer`
-
-## upgrading
-
-### update `ssb-pub-underground` image
-
-```shell
-docker pull ahdinosaur/ssb-pub
-docker stop sbot
-docker rm sbot
-# edit ~/ssb-pub-data/config if necessary
-./create-sbot
-```
