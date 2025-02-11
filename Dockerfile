@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.authors="FujiroAkakura@proton.me"
 
 RUN apt update
 
-USER root
+#USER root
 #ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
 #RUN chmod +x /tini
 # RUN mkdir /home/node/.npm-global ; \
@@ -22,4 +22,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=10s --retries=10 \
 ENV HEALING_ACTION=RESTART
 
 #ENTRYPOINT [ "/tini", "--", "ssb-server" ]
-CMD [ "start" ]
+#CMD [ "start" ]
