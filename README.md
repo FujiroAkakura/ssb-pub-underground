@@ -19,17 +19,16 @@ recommended to try to run this publicly, though I am not aware of any issues.  T
 choice to use it here is influenced by it's [excellent commandline api](https://scuttlebot.io/apis/scuttlebot/ssb.html), which allows the server 
 to be used programmatically in various ways, as well as it's plug-in infrastructure.
 
+## Host machine
+
+This package is currently designed to be used on container host machines with [Docker installed](https://docs.docker.com/engine/install/), however
+the instructions below are currently for Debian-based host machines.  You may be able to adapt them to your OS. 
+
 ## Status
 
 Alpha, except pre-alpha as noted towards the end of this readme.  Currently creates a server that doesn't do much on a host machine, but you can test that the server works (or doesn't).  The intent is to offer a base that can make the server more usable with a simple code pull.
 
 It is recommended to wait to install, however, so update scripts/instructions can be created.
-
-## Attribution
-
-Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which was designed to 
-install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install
-code has been removed.  This package is currently designed to be used on any Debian-based machine with [Docker installed](https://docs.docker.com/engine/install/).  
 
 ## Installation and Setup
 
@@ -62,6 +61,15 @@ local networks, you should see this ID show up in your client software (check th
 The first time you run the server, a subdirectory called "data" will be created on your container host machine.  This is where your server
 will store data, including your secret key.  You will need to move these files if you want to move to a new machine while preserving
 the setup. Otherwise, any updates to this code should reuse this setup.
+
+
+## Attribution
+
+Forked from [ahdinosaur](https://github.com/ahdinosaur)'s [ssb-pub](https://github.com/ahdinosaur/ssb-pub) which was designed to 
+install a pub on Digital Ocean, but since public pubs have fallen into of disfavor, it is unmaintained.  The Digital Ocean / Kubernetes / Docker Install code has been removed. Migrated to Docker Compose and eliminated Debian-based scripts on the host to generalizee the setup. 
+
+Used some tricks from: [Docker-ssb-server](https://github.com/Emceelamb/docker-ssb-server/blob/main/.gitignore)
+
 
 ## DO NOT USE INSTRUCTIONS BELOW (PRE-ALPHA) - This is a todo to update and test these instructions
 
