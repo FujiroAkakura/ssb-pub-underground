@@ -120,7 +120,8 @@ https://github.com/Emceelamb/docker-ssb-server
 
 ## TO-DOs
 
-* [ ] Get invites working
+* [ ] Fix error with sodium-native. See [this](https://github.com/ssbc/ssb-server/issues/676) and [this](https://github.com/ssbc/ssb-server/pull/723)
+* [ ] Get invites working and documented
 * [ ] Review and implement https://github.com/ssbc/ssb-config/#connections
 * [ ] Get [ssb-viewer](https://github.com/ssbc/ssb-viewer) per [ahdinosaur](https://github.com/ahdinosaur) working with latest source code available
 * [ ] Get healer per [ahdinosaur](https://github.com/ahdinosaur) working
