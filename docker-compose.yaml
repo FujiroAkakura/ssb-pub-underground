@@ -6,6 +6,7 @@ services:
           context: .  #path to file
           dockerfile: Dockerfile
         #image: sbot  
+        network_mode: host
         init: true #https://stackoverflow.com/questions/50356032/whats-the-docker-compose-equivalent-of-docker-run-init
         environment:
           EXAMPLE_EXAMPLE: example_example
@@ -14,7 +15,7 @@ services:
           - ./data/:/root/.ssb/
         ports:
           - target: 8008
-            published: 8008
+            published: 8009
             protocol: tcp
         restart: unless-stopped
         deploy:

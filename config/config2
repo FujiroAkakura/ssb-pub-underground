@@ -1,0 +1,40 @@
+{
+  "connections": {
+    "incoming": {
+      "net": [
+        {
+          "scope": "public",
+          "host": "0.0.0.0",
+          "external": "localhost",
+          "transform": "shs",
+          "port": 8008
+        },
+        {
+          "scope": "local",
+          "transform": "shs",
+          "port": 8008
+        },
+        {
+          "scope": "device",
+          "transform": "shs",
+          "port": 8008
+        }
+      ]
+    },
+    "outgoing": {
+      "net": [
+        {
+          "transform": "shs"
+        }
+      ]
+    }
+  },
+  "gossip": {
+    "connections": 3,
+    "local": true,
+    "friends": false,
+    "seed": false,
+    "global": true
+  }  
+
+}
