@@ -32,6 +32,13 @@ It is recommended to wait to install, however, so update scripts/instructions ca
 
 ## Installation and Setup
 
+[Install Docker](https://docs.docker.com/engine/install/) and add yourself to the Docker user group if you haven't already:
+
+```shell
+sudo usermod -aG docker $USER 
+```
+You will need to logout and back in for the above to take effect.
+
 Clone repository:
 
 ```shell
@@ -40,10 +47,8 @@ cd ssb-pub-underground
 ```
 ## Run your server
 
-Requires escalated priveleges. Lookup how to run 'Docker compose' on your OS. For example on Debian-derived OSs:
-
 ```shell
-sudo docker compose up
+docker compose up
 ```
 The first time you run, if all went well, you should see output something like:
 
@@ -74,7 +79,7 @@ The configuration file used by ssb-server is mapped to the "config" subdirectory
 Anytime your server is running, you can also get your ID via another terminal.  First, look for it in Docker:
 
 ```shell
-sudo docker container ls
+docker container ls
 docker exec -it <container id> ssb-server whoami
 ```
 
@@ -90,7 +95,7 @@ Container ID above is *d2291d8c9198* (yours will be different).  Then try the fo
 ### Get your server's public key:
 
 ```shell
-sudo docker exec -it <container id> ssb-server whoami
+docker exec -it <container id> ssb-server whoami
 ```
 
 The output should match *my key ID:* from when you first started the container, except for the '@' at the beginning
@@ -104,7 +109,7 @@ The output should match *my key ID:* from when you first started the container, 
 ### Create an invite (Pre-Alpha - NOT WORKING)
 
 ```shell
-sudo docker exec -it <container id> ssb-server invite.create 1
+docker exec -it <container id> ssb-server invite.create 1
 ```
 
 This should give:
