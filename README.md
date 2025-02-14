@@ -92,11 +92,22 @@ sbot whoami
 ```shell
 sbot getAddress
 ```
+See: [multiserver address](https://github.com/ssbc/multiserver#address-format)
+
 ### Publish a post
 
 ```shell
 sbot publish --type post --text "My First Post!"
 ```
+
+### Get gossip peers
+
+```shell
+sbot gossip.peers
+```
+
+See [this article](https://medium.com/@miguelmota/getting-started-with-secure-scuttlebut-e6b7d4c5ecfd) for more commands like this.
+
 ### Follow others
 
 Here is the main reason for this package - to follow and backup you and your family and friend's feeds:
@@ -112,11 +123,11 @@ where {feedId} is the "@....." address of those you want to follow.
 sbot feed
 ```
 
-# Stream all messages in all feeds, ordered by receive time
+### Stream all messages in all feeds, ordered by receive time
 ```shell
 sbot log
 ```
-# Same as above, but keep feeding as messages come in
+### Same as above, but keep feeding as messages come in
 ```shell
 sbot log --live
 ```
@@ -126,22 +137,23 @@ sbot log --live
 ```shell
 sbot --help
 ```
+Note that there are some undocumented commands.
 
 ### More on the web
 
 Descriptions of commands your server can run are scattered all over, but the following references describe the CLI API.  Note that some refer to "ssb-server", but use "sbot" instead.  Some commands, like create invite will not work, since only a pub served on the internet can create invites.
 
+https://medium.com/@miguelmota/getting-started-with-secure-scuttlebut-e6b7d4c5ecfd
 https://scuttlebot.io/apis/scuttlebot/ssb.html?ref=https://githubhelp.com
+https://github.com/fraction/ssb-cli
 https://handbook.scuttlebutt.nz/guides/ssb-server/cli-first-steps
 https://handbook.scuttlebutt.nz/guides/ssb-server/update-your-profile
 
 
-
-
-
-
 ## TO-DOs
 
+* [ ] Possibly autofollow local peers as they show up [gossip.changes](
+https://medium.com/@miguelmota/getting-started-with-secure-scuttlebut-e6b7d4c5ecfd)
 * [ ] Fix error with sodium-native. See [this](https://github.com/ssbc/ssb-server/issues/676) and [this](https://github.com/ssbc/ssb-server/pull/723)
 * [ ] Review and implement https://github.com/ssbc/ssb-config/#connections
 * [ ] Get [ssb-viewer](https://github.com/ssbc/ssb-viewer) per [ahdinosaur](https://github.com/ahdinosaur) working with latest source code available
