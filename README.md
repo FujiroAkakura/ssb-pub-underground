@@ -76,7 +76,7 @@ The configuration file used by ssb-server is mapped to the "config" subdirectory
 
 ### Enter a container shell
 
-As long as your server is running, you can enter a shell inside it and run commands on ssb-server(sbot):
+As long as your server is running, you can enter a shell inside it and access the ssb-server(sbot) API:
 
 ```shell
 docker exec -it <container id> sbot bash
@@ -92,28 +92,16 @@ The output should match *my key ID:* from when you first started the container, 
   "id": "@tGbhTpwDQnr4N7PtztHL17Wi6QXBze8VHUfl5KobUCw=.ed25519"
 }
 ```
+### More commands
 
-### Create an invite (Pre-Alpha - NOT WORKING)
+Descriptions of commands your server can run are scattered all over:
 
-```shell
-docker exec -it <container id> ssb-server invite.create 1
-```
 
-This should give:
 
-```console
-
-```
-
-See:
-https://github.com/ssbc/ssb-config/#connections
-https://codeberg.org/hjacobs/docker-ssb-server/src/branch/main
-https://github.com/Emceelamb/docker-ssb-server
 
 ## TO-DOs
 
 * [ ] Fix error with sodium-native. See [this](https://github.com/ssbc/ssb-server/issues/676) and [this](https://github.com/ssbc/ssb-server/pull/723)
-* [ ] Get invites working and documented
 * [ ] Review and implement https://github.com/ssbc/ssb-config/#connections
 * [ ] Get [ssb-viewer](https://github.com/ssbc/ssb-viewer) per [ahdinosaur](https://github.com/ahdinosaur) working with latest source code available
 * [ ] Get healer per [ahdinosaur](https://github.com/ahdinosaur) working
