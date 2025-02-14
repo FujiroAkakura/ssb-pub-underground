@@ -74,30 +74,17 @@ The configuration file used by ssb-server is mapped to the "config" subdirectory
 
 ## Interacting with the container
 
-### Get your Container ID
+### Enter a container shell
 
-Anytime your server is running, you can also get your ID via another terminal.  First, look for it in Docker:
-
-```shell
-docker container ls
-docker exec -it <container id> ssb-server whoami
-```
-
-You should see something like:
-
-```console
-CONTAINER ID   IMAGE                      COMMAND              CREATED          STATUS                    PORTS                                       NAMES
-d2291d8c9198   ssb-pub-underground-sbot   "ssb-server start"   48 minutes ago   Up 48 minutes (healthy)   0.0.0.0:8008->8008/tcp, :::8008->8008/tcp   sbot
-```
-
-Container ID above is *d2291d8c9198* (yours will be different).  Then try the following:
-
-### Get your server's public key:
+As long as your server is running, you can enter a shell inside it and run commands on ssb-server(sbot):
 
 ```shell
-docker exec -it <container id> ssb-server whoami
+docker exec -it <container id> sbot bash
 ```
-
+Get your identity:
+```shell
+sbot whoami
+```
 The output should match *my key ID:* from when you first started the container, except for the '@' at the beginning
 
 ```console
