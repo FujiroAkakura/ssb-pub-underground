@@ -26,9 +26,7 @@ the instructions below are currently for Debian-based host machines.  You may be
 
 ## Status
 
-Alpha, except pre-alpha as noted below.  Currently creates a server that doesn't do much on a host machine, but you can test that the server works (or doesn't).  The intent is to offer a base that can make the server more usable with a simple code pull.
-
-It is recommended to wait to install, however, so update scripts/instructions can be created.
+Alpha. Currently creates an ssb server that ddiscoverable on a local network. All interaction with the server is manual by command line, but you can disccover and follow other SSB users via the commandd line.
 
 ## Installation and Setup
 
