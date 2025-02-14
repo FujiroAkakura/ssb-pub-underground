@@ -6,7 +6,7 @@ A containerized [ssb-server](https://github.com/ssbc/ssb-server?tab=readme-ov-fi
 
 SSB Pubs have generally been deprecated in favor of SSB Rooms.  Primarily, this is because pubs have typically been servers on the internet
 to replicate and store SSB feeds, and it may be undesireable to do that publicly. However, there is one excellent use for an SSB pub, 
-and that is on a home server so you and your family and friends can keep your feeds synced.  It seems this is closer to the original vision of SSB 
+and that is on a home server so you and your family and friends can keep your feeds synced and backed up.  It seems this is closer to the original vision of SSB 
 as a sneakernet gossip social media.  It's not inconceivable that an actual physical pub or library might choose to run a local server on their
 wifi.
 
