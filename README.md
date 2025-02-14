@@ -81,20 +81,61 @@ As long as your server is running, you can enter a shell inside it and access th
 ```shell
 docker exec -it <container id> sbot bash
 ```
-Get your identity:
+
+### Get your identity
+
 ```shell
 sbot whoami
 ```
-The output should match *my key ID:* from when you first started the container, except for the '@' at the beginning
+### Get your address
 
-```console
-{
-  "id": "@tGbhTpwDQnr4N7PtztHL17Wi6QXBze8VHUfl5KobUCw=.ed25519"
-}
+```shell
+sbot getAddress
 ```
-### More commands
+### Publish a post
 
-Descriptions of commands your server can run are scattered all over:
+```shell
+sbot publish --type post --text "My First Post!"
+```
+### Follow others
+
+Here is the main reason for this package - to follow and backup you and your family and friend's feeds:
+
+```shell
+sbot publish --type contact --contact {feedId} --following
+```
+where {feedId} is the "@....." address of those you want to follow.
+
+### View your feed, ordered by publish time
+
+```shell
+sbot feed
+```
+
+# Stream all messages in all feeds, ordered by receive time
+```shell
+sbot log
+```
+# Same as above, but keep feeding as messages come in
+```shell
+sbot log --live
+```
+
+### See also sbot help
+
+```shell
+sbot --help
+```
+
+### More on the web
+
+Descriptions of commands your server can run are scattered all over, but the following references describe the CLI API.  Note that some refer to "ssb-server", but use "sbot" instead.  Some commands, like create invite will not work, since only a pub served on the internet can create invites.
+
+https://scuttlebot.io/apis/scuttlebot/ssb.html?ref=https://githubhelp.com
+https://handbook.scuttlebutt.nz/guides/ssb-server/cli-first-steps
+https://handbook.scuttlebutt.nz/guides/ssb-server/update-your-profile
+
+
 
 
 
@@ -105,6 +146,7 @@ Descriptions of commands your server can run are scattered all over:
 * [ ] Review and implement https://github.com/ssbc/ssb-config/#connections
 * [ ] Get [ssb-viewer](https://github.com/ssbc/ssb-viewer) per [ahdinosaur](https://github.com/ahdinosaur) working with latest source code available
 * [ ] Get healer per [ahdinosaur](https://github.com/ahdinosaur) working
+* [ ] Integrate this? https://github.com/soapdog/ssb-client-for-browser?tab=readme-ov-file
 
 ## Attribution
 
